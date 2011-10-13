@@ -1,0 +1,57 @@
+-- -*- Mode: lua -*-
+
+--[[--------------------------------------------------------------------------
+
+Copyright (c) 2011, salesforce.com, inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided
+that the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list of conditions and the
+following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this list of conditions and
+the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+Neither the name of salesforce.com, inc. nor the names of its contributors may be used to endorse or
+promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+
+--]]--------------------------------------------------------------------------
+
+
+if (_G['http'] == nil) then
+   local http = require "socket.http"
+end
+
+-- the '$' will be replaced with the lua module you are trying to load.
+local urls = {'http://<%= request.host_with_port %>/lua/$.lua',
+              'http://<%= request.host_with_port %>/luac?t=$'}
+
+local function load(modulename)
+  local errmsg = ""
+  -- Find source
+  local modulepath = string.gsub(modulename, "%.", "/")
+  for k, path in ipairs(urls) do
+    local filename = string.gsub(path, "%$", modulepath)
+    local body, status = http.request(filename)
+    if status == 200 then
+      -- Compile and return the module
+       return assert(loadstring(body, filename), filename)
+    end
+    errmsg = errmsg.."\n\tno file '"..filename.."' (checked with http loader)"
+  end
+  return errmsg
+end
+
+-- Install the loader so that it's called just before the normal Lua loader
+table.insert(package.loaders, 2, load)
