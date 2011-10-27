@@ -15,14 +15,15 @@ Dependencies
 ------------
 These are all declared in the `Gemfile`.
 
-Sinatra: [BSD license](https://github.com/sinatra/sinatra/blob/master/LICENSE)
-Sinatra-content-for: [BSD License](https://github.com/foca/sinatra-content-for/blob/master/LICENSE)
-SASS: [MIT license](http://sass-lang.com/docs/yardoc/file.MIT-LICENSE.html)
-ERB (built in to Ruby) [license](http://www.ruby-lang.org/en/LICENSE.txt)
-HAML: [MIT license](http://haml-lang.com/docs/yardoc/file.MIT-LICENSE.html)
-DataMapper, DataMapper Validations: [BSD license](https://github.com/datamapper/dm-core/blob/master/LICENSE)
-ActiveSupport: [MIT license](http://as.rubyonrails.org/files/README.html)
-Lunit: [MIT license](http://repo.or.cz/w/lunit.git/blob/HEAD:/LICENSE)
+- Sinatra: [MIT license](https://github.com/sinatra/sinatra/blob/master/LICENSE)
+- Sinatra-content-for: [MIT License](https://github.com/foca/sinatra-content-for/blob/master/LICENSE)
+- SASS: [MIT license](http://sass-lang.com/docs/yardoc/file.MIT-LICENSE.html)
+- ERB (built in to Ruby) [license](http://www.ruby-lang.org/en/LICENSE.txt)
+- HAML: [MIT license](http://haml-lang.com/docs/yardoc/file.MIT-LICENSE.html)
+- DataMapper, DataMapper Validations: [MIT license](https://github.com/datamapper/dm-core/blob/master/LICENSE)
+- ActiveSupport: [MIT license](http://as.rubyonrails.org/files/README.html)
+- Lunit: [MIT license](http://repo.or.cz/w/lunit.git/blob/HEAD:/LICENSE)
+
 LICENSE
 -------
 Copyright (c) 2011, salesforce.com, inc.
